@@ -43,7 +43,8 @@ function Note (props: any) {
 
   const NoteDescription = styled.p`    
     color: #282c34;
-    margin-bottom: 20px;`
+    margin-bottom: 20px;
+    white-space: pre-line`
 
   const EditButton = styled.button`
     margin:2px;

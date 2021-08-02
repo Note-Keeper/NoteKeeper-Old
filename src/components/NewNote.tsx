@@ -77,7 +77,7 @@ transition: .2s all;
 
 const NewNoteButton = styled.button`
 display:block;
-margin:10px auto;
+margin:18px auto;
 background-color:#00647d;
 border:0;
 color:#fff;
