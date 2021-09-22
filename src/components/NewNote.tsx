@@ -48,6 +48,7 @@ padding:12px 20px;
 text-align: left;
 margin:10px auto;
 max-width:90vw;
+box-sizing:border-box;
 width:800px;
 position:relative;`
 

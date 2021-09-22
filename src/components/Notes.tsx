@@ -4,7 +4,27 @@ import Note from './SingleNote'
 import NewNote from './NewNote'
 import Modal from 'react-modal'
 import EditNote from './EditNote'
+import Logo from '../assets/notekeeper.png'
 import axios from '../axios'
+
+const editModal = {
+    overlay: {
+        backgroundColor:'#26262650'
+    },
+    content: {
+        backgroundColor:'#f3f3f3f2',
+        paddingLeft:'0',
+        paddingRight:'0',
+        border: 'none',
+        width:'1200px',
+        margin:'auto',
+        maxWidth:'95vw',
+        inset:'0',
+        height:'700px',
+        maxHeight:'70vh',
+        borderRadius:'20px'
+    },
+};
 
 type MyProps = { };
 type MyState = { notes:any, showEditModal:boolean, editNote:any };
@@ -73,21 +93,18 @@ class Notes extends React.Component<MyProps, MyState> {
     editNoteHandler(note:any) {
         this.toggleModal();
         this.setState({ editNote: note })
-      }
-
+    }
     render() {
 
         return (
             <div>
             <Title>
-            Moje Notatki
-            <Author>by Mateusz Słotwiński</Author>
+            <LogoImage src={Logo} alt="NoteKeeper"/>
             </Title>
             <NewNote onAdd ={(note:any) => this.addNote(note)}/>
 
-            <Modal isOpen={this.state.showEditModal} contentLabel="Edytuj Notatkę">
-                <EditNote title={this.state.editNote.title} body={this.state.editNote.body} _id={this.state.editNote._id} onEdit={(note: any) => this.editNote(note)}/>
-                <EditCancelButton onClick={ () => this.toggleModal() } >Anuluj</EditCancelButton>
+            <Modal isOpen={this.state.showEditModal} style={editModal} contentLabel="Edytuj Notatkę">
+                <EditNote title={this.state.editNote.title} body={this.state.editNote.body} _id={this.state.editNote._id} onEdit={(note: any) => this.editNote(note)} onCancel={() => this.toggleModal()}/>
             </Modal>
 
                 {this.state.notes.map((note: { _id: any; title: any; body: any; }) => (
@@ -113,27 +130,8 @@ const Title = styled.div`
     color:#fff;
     font-size:48px;`
 
-const Author = styled.h2`
-    margin:0;
-    padding:0;
-    text-align:center;
-    color:#fff;
-    font-size:20px;
-    font-weight:400;`
-
-const EditCancelButton = styled.button`
-    margin:5px auto;
-    display:block;
-    background-color:#6d455e;
-    border:0;
-    color:#fff;
-    border-radius:4px;
-    padding:10px 25px;
-    cursor:pointer;
-    transition: .2s all;
-    &:hover {
-        background-color:#90597b;        
-    }
-    font-size:20px;`
+const LogoImage = styled.img`
+    margin:0 auto;
+    max-width:90vw;`
 
 export default Notes

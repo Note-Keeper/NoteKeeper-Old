@@ -1,13 +1,9 @@
-import React, {useState} from 'react'
+import React from 'react'
 import styled from "styled-components";
+import DeleteIcon from '../assets/icons/cancel.svg'
 
 function Note (props: any) {
-  
-  const [showDesc, setShowDesc] = useState(true)
 
-  const toggleDesc = () => {
-    setShowDesc(!showDesc)
-  }
   const editHandler = () => {
     props.onEdit({
       title:props.title,
@@ -18,58 +14,60 @@ function Note (props: any) {
 
     return (
       <Container>
-        <NoteTitle onClick={toggleDesc}>{props.title}</NoteTitle>
-        {showDesc && ( <NoteDescription>{props.body}</NoteDescription> )}
-        <EditButton onClick={editHandler}>Edytuj</EditButton>
-        <DeleteButton onClick={() => props.onDelete(props._id)}>Usuń</DeleteButton>
+        <Content onClick={editHandler}>
+          <NoteTitle>{props.title}</NoteTitle>
+          <NoteDescription>{props.body}</NoteDescription>
+        </Content>
+        <DeleteButton onClick={() => props.onDelete(props._id)}><img src={DeleteIcon}/></DeleteButton>
       </Container>
     );
   }
 
-    const Container = styled.div`
+  const Container = styled.div`
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  `
+
+    const Content = styled.div`
     background-color:#fff;
     border-radius:6px;
     padding:12px 20px;
     text-align: left;
-    margin:10px auto;
+    margin:10px;
     max-width:90vw;
+    box-sizing:border-box;
     width:800px;
-    position:relative;`
+    position:relative;
+    cursor: pointer;`
 
   const NoteTitle = styled.p`
     color:#000;
-    font-weight:bold;
-    cursor:pointer;`
+    font-weight:bold;`
 
   const NoteDescription = styled.p`    
     color: #282c34;
     margin-bottom: 20px;
     white-space: pre-line`
 
-  const EditButton = styled.button`
-    margin:2px;
-    background-color:#00647d;
-    border:0;
-    color:#fff;
-    border-radius:4px;
-    padding:4px 8px;
-    cursor:pointer;
-    transition: .2s all;
-    &:hover {
-        background-color:#137c96;        
-    }`
-
   const DeleteButton = styled.button`
-    margin:2px;
-    background-color:#6d455e;
+    margin:10px;
+    float:right;
+    display:block;
+    background:#6d455e;
     border:0;
     color:#fff;
     border-radius:4px;
-    padding:4px 8px;
+    width:50px;
+    height:50px;
     cursor:pointer;
     transition: .2s all;
+    >img {
+        width:100%;
+        height:100%;
+    }
     &:hover {
-        background-color:#90597b;        
+        background:#90597b;        
     }`
   
   export default Note
