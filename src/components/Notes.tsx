@@ -4,6 +4,7 @@ import Note from './SingleNote'
 import NewNote from './NewNote'
 import Modal from 'react-modal'
 import EditNote from './EditNote'
+import AddIcon from '../assets/icons/add.svg'
 import Logo from '../assets/notekeeper.png'
 import axios from '../axios'
 
@@ -27,13 +28,14 @@ const editModal = {
 };
 
 type MyProps = { };
-type MyState = { notes:any, showEditModal:boolean, editNote:any };
+type MyState = { notes:any, showEditModal:boolean, showAddModal:boolean, editNote:any };
 class Notes extends React.Component<MyProps, MyState> {
     
     constructor(props: any) {
         super(props)
         this.state = {
             notes: [],
+            showAddModal: false,
             showEditModal: false,
             editNote: {}
         }
@@ -63,7 +65,7 @@ class Notes extends React.Component<MyProps, MyState> {
         } catch (err) {
             console.log(err)
         }
-        
+        this.toggleAddModal();
     }
 
     async deleteNote(id:any) {
@@ -83,15 +85,19 @@ class Notes extends React.Component<MyProps, MyState> {
           notes[index] = note;
           this.setState({ notes });
         }
-        this.toggleModal();
+        this.toggleEditModal();
       }
 
-    toggleModal() {
+    toggleEditModal() {
         this.setState({showEditModal: !this.state.showEditModal})
     }
 
+    toggleAddModal() {
+        this.setState({showAddModal: !this.state.showAddModal})
+    }
+
     editNoteHandler(note:any) {
-        this.toggleModal();
+        this.toggleEditModal();
         this.setState({ editNote: note })
     }
     render() {
@@ -99,12 +105,19 @@ class Notes extends React.Component<MyProps, MyState> {
         return (
             <div>
             <Title>
-            <LogoImage src={Logo} alt="NoteKeeper"/>
+                <LogoImage src={Logo} alt="NoteKeeper"/>
             </Title>
-            <NewNote onAdd ={(note:any) => this.addNote(note)}/>
+
+            <NewNoteCont>
+                <NewNoteButton onClick={() => this.toggleAddModal()}><img src={AddIcon}/></NewNoteButton>
+                <span>Dodaj notatkę</span>
+                <Modal isOpen={this.state.showAddModal} style={editModal} contentLabel="Dodaj Notatkę">
+                    <NewNote onAdd ={(note:any) => this.addNote(note)} onCancel={() => this.toggleAddModal()}/>
+                </Modal>
+            </NewNoteCont>
 
             <Modal isOpen={this.state.showEditModal} style={editModal} contentLabel="Edytuj Notatkę">
-                <EditNote title={this.state.editNote.title} body={this.state.editNote.body} _id={this.state.editNote._id} onEdit={(note: any) => this.editNote(note)} onCancel={() => this.toggleModal()}/>
+                <EditNote title={this.state.editNote.title} body={this.state.editNote.body} _id={this.state.editNote._id} onEdit={(note: any) => this.editNote(note)} onCancel={() => this.toggleEditModal()}/>
             </Modal>
 
                 {this.state.notes.map((note: { _id: any; title: any; body: any; }) => (
@@ -132,6 +145,50 @@ const Title = styled.div`
 
 const LogoImage = styled.img`
     margin:0 auto;
-    max-width:90vw;`
+    max-width:90vw;
+`
+const Button = styled.button`
+margin:10px 0;
+background-color:#00647d;
+border:0;
+color:#fff;
+border-radius:4px;
+padding:4px 8px;
+cursor:pointer;
+transition: .2s all;
+&:hover {
+    background-color:#137c96;        
+}`
+
+const NewNoteButton = styled.button`
+margin:10px;
+float:right;
+display:block;
+background:#00647d;
+border:0;
+color:#fff;
+border-radius:4px;
+width:50px;
+height:50px;
+cursor:pointer;
+transition: .2s all;
+    >img {
+        width:100%;
+        height:100%;
+    }
+&:hover {
+    background:#137c96;        
+}`
+
+const NewNoteCont = styled.div`
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:20px;
+color:#e3e3e3;
+font-weight:bold;
+`
+
+
 
 export default Notes

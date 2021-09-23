@@ -1,6 +1,9 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
 
+import SaveIcon from '../assets/icons/save.svg'
+import CancelIcon from '../assets/icons/cancel.svg'
+
 function NewNote(props: any) {
 
     const [title, setTitle] = useState('')
@@ -25,70 +28,112 @@ function NewNote(props: any) {
         setShowForm(false)
     }
 
-    return (
-        showForm ? (
-        <Container>
-            <label>Tytuł:</label>
-            <Input type="text" value={title} onChange={changeTitleHandler}/>
-            <label>Opis:</label>
-            <Input type="text" value={desc} onChange={changeDescHandler}/>
+    const cancelNote = () => {
+        props.onCancel()
+    }
 
-            <Button onClick={() => addNote()}>Dodaj Notatkę</Button>
+    return (
+        <Container>
+            <Content>
+                <Input type="text" value={title} onChange={changeTitleHandler} placeholder="Tytuł notatki"/>
+                <Textarea value={desc} onChange={changeDescHandler} placeholder="Treść notatki"/>
+            </Content>
+            <ButtonCancel onClick={() => cancelNote()}><img src={CancelIcon}/></ButtonCancel>
+            <Button onClick={() => addNote()}><img src={SaveIcon}/></Button>
         </Container>
-        ) : (
-            <NewNoteButton onClick={() => setShowForm(true)}>Nowa Notatka</NewNoteButton>
-        )
     )
 }
 
 const Container = styled.div`
+margin:3px auto;
+max-width:100%;
+width:900px;
+`
+
+const Content = styled.div`
 background-color:#fff;
-border-radius:6px;
-padding:12px 20px;
+border-radius:10px;
 text-align: left;
-margin:10px auto;
-max-width:90vw;
+width:100%;
 box-sizing:border-box;
-width:800px;
-position:relative;`
+position:relative;
+text-align:center;
+border:none;
+@media (max-width: 768px) {
+    background-color:transparent !important;
+}`
 
 const Input = styled.input`
 display:block;
-padding: .375rem .75rem;
-font-size:0.9rem;
+padding: 20px;
+font-size:20px;
 color: #262626;
-background-color:#fff;
+background:transparent;
 background-clip: padding-box;
-border: 1px solid #e3e3e3 !important;
+border:none;
 border-radius: .25rem;
-font-family:rubik;`
+width:100%;
+box-sizing:border-box;
+font-family:rubik;
+outline:none;
+font-weight:bold;
+`
+
+const Textarea = styled.textarea`
+display:block;
+padding: 20px;
+font-size:18px;
+color: #262626;
+background:transparent;
+background-color: padding-box;
+border:none;
+border-radius: .25rem;
+font-family:rubik;
+width:100%;
+height:300px;
+resize: none;
+box-sizing:border-box;
+outline:none;
+`
 
 const Button = styled.button`
-margin:10px 0;
-background-color:#00647d;
+margin:10px;
+float:right;
+display:block;
+background:#00647d;
 border:0;
 color:#fff;
 border-radius:4px;
-padding:4px 8px;
+width:50px;
+height:50px;
 cursor:pointer;
 transition: .2s all;
+    >img {
+        width:100%;
+        height:100%;
+    }
 &:hover {
-    background-color:#137c96;        
+    background:#137c96;        
 }`
 
-const NewNoteButton = styled.button`
+const ButtonCancel = styled.button`
+margin:10px;
+float:right;
 display:block;
-margin:18px auto;
-background-color:#00647d;
+background:#6d455e;
 border:0;
 color:#fff;
-border-radius:8px;
-padding:8px 12px;
+border-radius:4px;
+width:50px;
+height:50px;
 cursor:pointer;
 transition: .2s all;
-font-size: 20px;
+>img {
+    width:100%;
+    height:100%;
+}
 &:hover {
-    background-color:#137c96;        
+    background:#90597b;        
 }`
 
 export default NewNote

@@ -72,7 +72,7 @@ border:none;
 
 const Input = styled.input`
 display:block;
-padding: .375rem .75rem;
+padding: 20px;
 font-size:20px;
 color: #262626;
 background:transparent;
