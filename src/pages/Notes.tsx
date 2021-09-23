@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from "styled-components";
-import Note from './SingleNote'
-import NewNote from './NewNote'
+import Note from '../components/SingleNote'
+import NewNote from '../components/NewNote'
 import Modal from 'react-modal'
-import EditNote from './EditNote'
+import EditNote from '../components/EditNote'
 import AddIcon from '../assets/icons/add.svg'
 import Logo from '../assets/notekeeper.png'
 import axios from '../axios'
@@ -109,7 +109,7 @@ class Notes extends React.Component<MyProps, MyState> {
             </Title>
 
             <NewNoteCont>
-                <NewNoteButton onClick={() => this.toggleAddModal()}><img src={AddIcon}/></NewNoteButton>
+                <NewNoteButton onClick={() => this.toggleAddModal()}><img src={AddIcon} alt="Dodaj"/></NewNoteButton>
                 <span>Dodaj notatkę</span>
                 <Modal isOpen={this.state.showAddModal} style={editModal} contentLabel="Dodaj Notatkę">
                     <NewNote onAdd ={(note:any) => this.addNote(note)} onCancel={() => this.toggleAddModal()}/>
@@ -147,18 +147,6 @@ const LogoImage = styled.img`
     margin:0 auto;
     max-width:90vw;
 `
-const Button = styled.button`
-margin:10px 0;
-background-color:#00647d;
-border:0;
-color:#fff;
-border-radius:4px;
-padding:4px 8px;
-cursor:pointer;
-transition: .2s all;
-&:hover {
-    background-color:#137c96;        
-}`
 
 const NewNoteButton = styled.button`
 margin:10px;

@@ -8,6 +8,7 @@ function NewNote(props: any) {
 
     const [title, setTitle] = useState('')
     const [desc, setDesc] = useState('')
+    // eslint-disable-next-line
     const [showForm, setShowForm] = useState(false)
     const changeTitleHandler = (event:any) => {
         const value = event.target.value
@@ -38,8 +39,8 @@ function NewNote(props: any) {
                 <Input type="text" value={title} onChange={changeTitleHandler} placeholder="Tytuł notatki"/>
                 <Textarea value={desc} onChange={changeDescHandler} placeholder="Treść notatki"/>
             </Content>
-            <ButtonCancel onClick={() => cancelNote()}><img src={CancelIcon}/></ButtonCancel>
-            <Button onClick={() => addNote()}><img src={SaveIcon}/></Button>
+            <ButtonCancel onClick={() => cancelNote()}><img src={CancelIcon} alt="Anuluj"/></ButtonCancel>
+            <Button onClick={() => addNote()}><img src={SaveIcon} alt="Zapisz"/></Button>
         </Container>
     )
 }

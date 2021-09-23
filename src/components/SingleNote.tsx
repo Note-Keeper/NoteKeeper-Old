@@ -18,7 +18,7 @@ function Note (props: any) {
           <NoteTitle>{props.title}</NoteTitle>
           <NoteDescription>{props.body}</NoteDescription>
         </Content>
-        <DeleteButton onClick={() => props.onDelete(props._id)}><img src={DeleteIcon}/></DeleteButton>
+        <DeleteButton onClick={() => props.onDelete(props._id)}><img src={DeleteIcon} alt="Usuń"/></DeleteButton>
       </Container>
     );
   }

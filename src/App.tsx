@@ -1,6 +1,9 @@
 import React from 'react'
-import Notes from './components/Notes'
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+
+import Notes from './pages/Notes'
+import Login from './pages/Login'
+
 import './assets/root.scss';
 
 function App () {
@@ -11,7 +14,7 @@ function App () {
           <Notes />
         </Route>
         <Route path="/login">
-          BCDA
+          <Login/>
         </Route>
       </Switch>
     </Router>

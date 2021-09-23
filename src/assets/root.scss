@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
-      
+
+* {
+  box-sizing: border-box;
+  position: relative;
+}
+
 body {
   background-color: #282c34;
   margin:0;

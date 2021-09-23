@@ -36,8 +36,8 @@ function EditNote(props: any) {
                 <Textarea defaultValue={desc} onChange={changeDescHandler}></Textarea>
             </Content>
             <Id>ID: {props._id}</Id>
-            <ButtonCancel onClick={() => cancelNote()}><img src={CancelIcon}/></ButtonCancel>
-            <Button onClick={() => editNote()}><img src={SaveIcon}/></Button>
+            <ButtonCancel onClick={() => cancelNote()}><img src={CancelIcon} alt="Anuluj"/></ButtonCancel>
+            <Button onClick={() => editNote()}><img src={SaveIcon} alt="Zapisz"/></Button>
         </Container>
     )
 }
