@@ -49,6 +49,7 @@ class Notes extends React.Component<MyProps, MyState> {
 
     async fechNotes() {
         const res = await axios.get('/notes')
+        console.log(res)
         const notes = res.data
         this.setState({ notes })
     }

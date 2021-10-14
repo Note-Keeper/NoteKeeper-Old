@@ -19,21 +19,27 @@ function Login (props: any) {
         setPass(value)
     }
 
-    const loginMe = async () => {
+    const registerMe = async () => {
         const data = {
             login: login,
             pass: pass
         }
-        const res = await axios.post('/login', data)
-        if (res.data != null) {
-            console.log('Jest')
+        if (login.length > 0 && pass.length > 0) {
+            try {
+                await axios.post('/register', data)
+                window.location.href="/login"
+            } catch (err: any) {
+                setError(err.response.data)
+            }
         } else {
-            setError('Nieprawidłowe dane')
+            setError('Podaj prawidłowy login i hasło')
         }
+        setLogin('')
+        setPass('')
     }
-    const loginMeEnter = (event:any) => {
+    const registerMeEnter = (event:any) => {
         if (event.key === 'Enter') {
-            loginMe()
+            registerMe()
         }
     }
   
@@ -41,33 +47,24 @@ function Login (props: any) {
         <Container>
             <Form>
                 <Title>
-                    Zaloguj się
+                    Zarejestruj się
                 </Title>
                 <Pls>
                     Zajmie to mniej niż minutę, a pozwoli ci to wyświetlać notatki na wszystkich urządzeniach
                 </Pls>
-                <Input value={login} onKeyDown={loginMeEnter} onChange={changeLoginHandler} placeholder="Login" />
-                <Input value={pass} onKeyDown={loginMeEnter} onChange={changePassHandler}  type="password" placeholder="Hasło" />
-                <Button onClick={() => loginMe()}>Zaloguj</Button>
+                <Input value={login} onKeyDown={registerMeEnter}  onChange={changeLoginHandler} placeholder="Login" />
+                <Input value={pass} onKeyDown={registerMeEnter}  onChange={changePassHandler}  type="password" placeholder="Hasło" />
+                <Button onClick={() => registerMe()}>Zarejestruj się</Button>
                 <Err>
                     {error}
                 </Err>
                 <Pls>
-                    Nie masz konta? <Link to="/register"><Reg>Zarejestruj się!</Reg></Link>
+                    Masz już konto? <Link to="/login"><Reg>Zaloguj się!</Reg></Link>
                 </Pls>
             </Form>
         </Container>
       );
 }
-
-const Err = styled.b`
-    width:70%;
-    text-align:center;
-    font-size:20px;
-    color:#cc0000;
-    text-decoration:underline;
-    margin:20px;
-`
 
 const Reg = styled.b`
     color:#6d455e;
@@ -76,6 +73,14 @@ const Reg = styled.b`
 const Pls = styled.div`
     width:70%;
     text-align:center;
+`
+const Err = styled.b`
+    width:70%;
+    text-align:center;
+    font-size:20px;
+    color:#cc0000;
+    text-decoration:underline;
+    margin:20px;
 `
 
 const Title = styled.div`
